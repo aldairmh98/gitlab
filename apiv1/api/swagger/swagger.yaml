@@ -1,0 +1,178 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: Momingo Api
+# during dev, should point to your local machine
+host: localhost:10010
+#host: copper-bot-213222.appspot.com
+#GRPCS
+# basePath prefixes all resource paths 
+basePath: /
+# 
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /login:
+    x-swagger-router-controller: user.controller
+    get:
+      description: Loggeo de un usuario
+      operationId: getUserLog
+      parameters:
+        - name: username
+          in: query
+          type: string
+          required: true
+        - name: pass
+          in: query
+          type: string
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/User"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /usuarios:
+    x-swagger-router-controller: user.controller
+    post:
+      description: Registro de un usuario a la BD
+      operationId: createUser
+      parameters:
+        - in: body
+          name: Usuario
+          schema:
+           $ref: "#/definitions/User"
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/User'
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      
+    get:
+      description: Retorna lista de usuarios
+      operationId: getUsers
+      parameters:
+        - in: query
+          name: data
+          type: string
+          required: false
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetUsersList"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    delete:
+      description: delete a user
+      operationId: deleteUser
+      parameters:
+        - name: username
+          description: username
+          type: string
+          in: query
+          required: true
+        - name: password
+          description: password
+          type: string
+          in: query
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/User"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+            
+  /usuarios/{id}:
+    x-swagger-router-controller: user.controller
+    put:
+      description: update an user data
+      operationId: updateUser
+      parameters:
+        - name: id
+          description: El nombre del usuario ejemplo "aldairmh"
+          type: string
+          in: path
+          required: true
+        - in: body
+          name: usuario
+          description: The Operador to update.
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/User"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"  
+        
+  /swagger:
+    x-swagger-pipe: swagger_raw
+# complex objects have schema definitions
+definitions:
+  GetUsersList:
+    required:
+      - users
+    properties:
+      users:
+        type: array
+        items:
+          $ref: "#/definitions/User"
+  User:
+    type: object
+    properties:
+      username:
+        type: string
+      email:
+        type: string
+      descripcion:
+        type: string
+      passw:
+        type: string
+  GeneralResponse:
+    type: object
+    properties:
+      message:
+        type: string
+    required:
+      - message
+  ErrorResponse:
+    type: object
+    properties:
+      error:
+        $ref: '#/definitions/ErrorIntResponse'
+  ErrorIntResponse:
+    properties:
+      code:
+        type: number
+      message:
+        type: string
+      description:
+        type: string
+    required:
+      - message
