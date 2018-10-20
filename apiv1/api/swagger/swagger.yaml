@@ -3,7 +3,7 @@ info:
   version: "0.0.1"
   title: Momingo Api
 # during dev, should point to your local machine
-host: localhost:10010
+host: aldair-218814.appspot.com
 #host: copper-bot-213222.appspot.com
 #GRPCS
 # basePath prefixes all resource paths 
