@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "aldair-218814",
+  "private_key_id": "51118eac757c2e02d6f11d718178cba22bc71357",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDi832NHvbohbZs\nmrB5SDYncE//Aj0npSbEk+hN3J9K/jbHpONZGsEQLYxTdasqwB0FgN+k2VwPq9xe\nAv7OxjxkPJe3Gf1T99IjZajRRughKAA98ukUvEe0zObih5INjN4eCQlU3594QbDh\nf+BwY9YdJGt/yopVeONSPdMAMhZw7XtuROENrB3wfnlM8PEoXtSO3RS7YD7UMbnK\nF4DzK9k1mE/aCmeYJtWlpp1SiKsQVtf/GfCKfsylftw5XtKFa5/JaglmkHclBVXP\nJ5Qm0XhxX6jhy2NUxZyfSxO9wx/FlfJKKlE1VZOQE/qDKrzduwfuj9+fn3J2a8Sm\nAqLbMClBAgMBAAECggEAWO4hrflKti2jIKZy7Wtq8QRVDG+DqDPSX6g3mL8RWlEI\nBS4q+iD+MwkuGgwbUOqr1Jq9x/p2VRu6g8o3r63FP1/w8UpJVqxe1wkAYFUhI9Dp\nW10CkWH/1SyPcoe+JvoilXFkCzJ/ah+PoKU7vL6aSZwaVZ53m2t95B2ev05hNclU\nMuM/aT5SsDqfYnEp5VqO3bQINjL8GJZWhKMoW3mi56350ZnjB6Qw26I7i2VHljg6\nHhAao0dLzfhF51oUENRfSgYNlE9HhhVFzOzsGNuRcR/J5gyhB38SY/U3WqLucrhQ\nxzbBRKNo3mm4d8FTTQWu7ilwvV2x56BXkm6jsnGWqwKBgQDyhSS115Y9A5jDMAhg\n29jMWqaxGIgp/8d9MKI2+7EKgqEjD7jiYEHa8pT9hAHhw2eYedThOxZn/Q17xrEK\nAVB+/uU9JCj6pOBe6mR16D89VruUZqI+P0E0LKTIXEX1iN/fQlDvCS0Hmz566s8m\n3i2ezUvH2M9JPYYHeCPpXtB9AwKBgQDvkNBbVcS8BVowYLhAkIFYNvmL301PTh4x\n3Qs7hA2AmLWThYC171NP9o+KoIclN2yPioLVY3SVgv6vBQdgmo0PA1Yu9dyBSXGF\nFaGbuNhWYaFiHRTO2pyHPaAQ4FJ+SpR5mlK/Pavp3itayUBGuBUQh7SFNFbhM1Ub\nVyDPedGjawKBgACbXLAnzfRxIdy7LgowAqbgQzKGQTD5tuIVURKaJqNEGGsiCvBm\nFUQa/0xzHB4YgxXamDHIGBJCi9oXcTH5Nt5afPBeOswFxZn3NDEnV6ErqmSArT9C\noUMkKXVm5bXrlcPVQqaWe0pdlRZxp/sM60hOczYY0Mv6H2+9WTmoRxVJAoGAIzdk\niaioDQO0aFwveb5EZVVfhcJDuR7ArY/S8OLOoVLRjmgXracK1jxmiXhjpYLqQIea\nCAhgwQHKsqvIk9jkV4qkBq85xP+o4ml1olCf7MLZWHTx9B6K2A6lExYGym3oOaAH\n/fjw5qY0NVpUSpEQ96cbUGGLS/uhzS0Xs6gyuxUCgYB7I/Ly2idzF87vAuA6VUOs\nDUvFx69gKyGf6n+CI3hW4Xq1DWokVlSqyx8XmEFVnJPBw4b10BnwRxmTiu4UwThc\nQc5b4NDfbbvh7SFNl2QnbWvgsWxfzZTFIfzAWDdMqbYsXMcheuFs2qXaDAzi+w3h\nvCjC1FcfsI6/aX9PiPxc3w==\n-----END PRIVATE KEY-----\n",
+  "client_email": "gcs-momingo@aldair-218814.iam.gserviceaccount.com",
+  "client_id": "100753313891644169043",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/gcs-momingo%40aldair-218814.iam.gserviceaccount.com"
+}

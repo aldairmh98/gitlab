@@ -67,8 +67,8 @@ function getUserById(id) {
   
     console.log('Body %s ', body.username);
     
-    return new Promise(function(resolve, reject) {
-    
+    return new Promise(
+      function(resolve, reject) { 
       console.log('Body %s ', body.username);
       Users
        .create({ 
@@ -110,9 +110,10 @@ function getUserById(id) {
   
     });
   }
-  
+
   function updateUser(body) {
-    return new Promise(function(resolve, reject) {
+    return new Promise(
+      function(resolve, reject) {
       Users
         .findOne({where: {username:body.id}})
         .then(myoper => {

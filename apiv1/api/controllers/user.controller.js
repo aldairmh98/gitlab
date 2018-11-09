@@ -141,8 +141,26 @@ const GS_CT_DELETED_SUCCESSFULLY = 'USER deleted successfully';
       }
     }
     
+    function seguirUsuario(req, res){
+      try{
+        var params = {follower:req.body.followerid, followed: req.body.followedid};
+        userService.followUser(params).then(function (response) {
+          if(!response){
+            res.status(200);
+            res.json("ok");
+          }else{          
+          res.status(409).json(response);
+        }
+        })
+        .catch(function(response) {
+          console.log("error");
+        })
+      }catch(error){
+      }
+    }
     module.exports = {
       getUsers,
+      seguirUsuario,
       createUser,
       getUserLog,
       getUserById,

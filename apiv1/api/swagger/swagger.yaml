@@ -3,8 +3,8 @@ info:
   version: "0.0.1"
   title: Momingo Api
 # during dev, should point to your local machine
-host: aldair-218814.appspot.com
-#host: copper-bot-213222.appspot.com
+#host: aldair-218814.appspot.com
+host: localhost:10010
 #GRPCS
 # basePath prefixes all resource paths 
 basePath: /
@@ -16,10 +16,133 @@ schemes:
 # format of bodies a client can send (Content-Type)
 consumes:
   - application/json
+  - multipart/form-data
 # format of the responses to the client (Accepts)
 produces:
   - application/json
 paths:
+  /rateposts:
+    x-swagger-router-controller: rateposts.controller
+    post:
+      description: Agregar una calificación o modifica a un post
+      operationId: ratePost
+      parameters:
+        - in: body
+          name: Post Ratting body
+          required: true
+          schema:
+            $ref: "#/definitions/PostRate"
+      responses:
+        "200":
+          description: Ha sido completado
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        "409":
+          description: No se ha completado
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+  /saveposts:
+    x-swagger-router-controller: saveposts.controller
+    post:
+      description: Guarda un post para poder verlo después (No en su dispostivo sólo en su cuenta).
+      operationId: savePost
+      parameters:
+        - in: body
+          name: PostSave body
+          required: true
+          schema:
+            $ref: "#/definitions/PostSave"
+      responses:
+        "200":
+          description: Ha sido completado
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        "409":
+          description: No se ha completado
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+    delete:
+      description: Borra de sus guardados alguna publicación
+      operationId: deletesavedPost
+      parameters:
+        - name: id_save
+          in: query
+          type: number
+          required: true
+      responses:
+        "200":
+          description: Ha sido completado
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: No se ha completado
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+  /posts:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: posts.controller
+    get:
+      description: Retorna la lista de publicaciones de un usuario
+      operationId: getPosts
+      parameters:
+        - name: username
+          type: string
+          required: true
+          in: query
+      responses:
+        "200":
+          description: Los post de un usuario
+          schema:
+            $ref: "#/definitions/PostList"
+        "409":
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    delete:
+      description: Borra una publicación
+      operationId: deletePost
+      parameters:
+        - name: id_post
+          type: number
+          required: true
+          in: query
+      responses:
+        "200":
+          description: Se ha borrado
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: No se pudo, man
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    post:
+      description: Returns 'Hello' to the caller
+      # used as the method name of the controller
+      operationId: createPost
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: file
+          in: formData
+          description: Meme que se va a subir
+          type: file
+        - name: body
+          in: formData
+          description: Cuerpo del post, username y descripcion
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/GeneralResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /login:
     x-swagger-router-controller: user.controller
     get:
@@ -63,7 +186,6 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-      
     get:
       description: Retorna lista de usuarios
       operationId: getUsers
@@ -104,7 +226,7 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-            
+
   /usuarios/{id}:
     x-swagger-router-controller: user.controller
     put:
@@ -130,11 +252,134 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"  
-        
+
+  /follows:
+    x-swagger-router-controller: follows.controller
+    get:
+      description: Ver los seguidores de un usuario
+      operationId: listFollowers
+      parameters:
+        - name: username
+          in: query
+          type: string
+          required: true
+      responses:
+        "200":
+          description: List of followers
+          schema:
+            $ref: "#/definitions/ListFollowers"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    delete:
+      description: Dejar de seguir a un usuario
+      operationId: deleteFollow
+      parameters:
+        - in: query
+          name: username_seguidor
+          type: string
+          required: true
+        - in: query
+          name: username_seguido
+          type: string
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+    post:
+      description: Seguir a otro usuario
+      operationId: seguirUsuario
+      parameters:
+        - in: body
+          name: follow
+          schema:
+            $ref: "#/definitions/Follow"
+      responses:
+        "200":
+          description: SUCCESS
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        "409":
+          description: SQLException
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        default:
+          description: ERROR
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
+  PostList:
+    required:
+      - posts
+    properties:
+      posts:
+        type: array
+        items:
+          $ref: "#/definitions/User"
+
+  PostRate:
+    required:
+      - username
+      - post
+      - calificacion
+    properties:
+      username:
+        type: string
+      post:
+        type: number
+      calificacion:
+        type: number
+  PostSave:
+    required:
+      - username
+      - id
+    properties:
+      username:
+        type: string
+      id:
+        type: number
+  Follow:
+    required:
+      - followerid
+      - followedid
+    properties:
+      followerid:
+        type: string
+      followedid:
+        type: string
+  Follow2:
+    properties:
+      username_seguidor:
+        type: string
+      username_seguido:
+        type: string
+  ListFollowers:
+    required:
+      - followers
+    properties:
+      followers:
+        type: array
+        items:
+          $ref: "#/definitions/Follow2"
+  Post:
+    required:
+      - username
+    properties:
+      username:
+        type: string
+      descripcion:
+        type: string
   GetUsersList:
     required:
       - users
@@ -143,6 +388,15 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/User"
+  UserProfile:
+    type: object
+    properties:
+      username:
+        type: string
+      email:
+        type: string
+      descripcion:
+        type: string
   User:
     type: object
     properties:
@@ -155,17 +409,9 @@ definitions:
       passw:
         type: string
   GeneralResponse:
-    type: object
     properties:
       message:
         type: string
-    required:
-      - message
-  ErrorResponse:
-    type: object
-    properties:
-      error:
-        $ref: '#/definitions/ErrorIntResponse'
   ErrorIntResponse:
     properties:
       code:
@@ -176,3 +422,15 @@ definitions:
         type: string
     required:
       - message
+  HelloWorldResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string

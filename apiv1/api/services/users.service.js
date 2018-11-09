@@ -21,11 +21,9 @@ const GS_SVC_ERR_DELETE_VG_EXISTS_ASSOCIATED = 'Not possible to delete gamesyste
 ////////////////////////////////////////////////////////////////////////////////
 
 function login(username, psw){
-  console.log('Loggeando...')
   return usersRepository.login(username, psw);
 }
 function getUsers(params) {
-  console.log("ENTRO al metodo service");
   return usersRepository.getUsers(params);
 }
 
@@ -46,6 +44,7 @@ function deleteUser(username, password) {
   
   return result;
 }
+
 
 function updateUser(params) {
   return usersRepository.updateUser(params);
